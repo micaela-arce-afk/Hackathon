@@ -27,3 +27,5 @@ Displayed message: “404: Page abducted. Looks like the aliens took it with the
 - **CSS3:** Styling and animations (no frameworks).  
 - **Optional JavaScript:** Minimal, only if required for simple effects.  
 - **GitHub Pages:** Hosting and live deployment.
+# Hackathon
+Valeria Chacin, Anahí Kolofon, Micaela Arce, Virginia Sarrais
