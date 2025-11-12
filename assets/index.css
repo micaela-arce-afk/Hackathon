@@ -1,24 +1,308 @@
-/* Design Tokens */
-:root {
-    /* Colors - Space Theme */
-    --color-space-dark: #0a0e27;
-    --color-mars-red: #cd5c5c;
-    --color-mars-orange: #ff6b35;
-    --color-accent: #00d9ff;
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Poppins:wght@300;400&display=swap');
 
-    /* Typography */
-    --font-main: 'Space Mono', monospace;
-    --font-size-huge: clamp(4rem, 15vw, 12rem);
-
-    /* Spacing */
-    --space-md: 2rem;
-
-    /* Animation */
-    --transition-normal: 0.3s ease;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* Floating animation */
+body {
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+  background: radial-gradient(circle at center, #0b0c10 40%, #050608 100%);
+  overflow-x: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* ------------------------------
+   FONDO ESTRELLADO ANIMADO
+--------------------------------*/
+.stars, .twinkling {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  display: block;
+  z-index: -2;
+}
+
+.stars {
+  background: transparent url('https://raw.githubusercontent.com/ruvebal/web-atelier-udit/main/lessons/en/404/hackathon/stars.png') repeat top center;
+  animation: moveStars 200s linear infinite;
+}
+
+.twinkling {
+  background: transparent url('https://raw.githubusercontent.com/ruvebal/web-atelier-udit/main/lessons/en/404/hackathon/twinkling.png') repeat top center;
+  animation: moveTwinkling 300s linear infinite;
+  opacity: 0.5;
+}
+
+/* ------------------------------
+   ESCENA PRINCIPAL
+--------------------------------*/
+.scene {
+  text-align: center;
+  margin-top: 5rem;
+}
+
+.title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 7rem;
+  color: #00ffb2;
+  text-shadow: 0 0 20px rgba(0, 255, 178, 0.8);
+  animation: glowText 3s ease-in-out infinite alternate;
+}
+
+.subtitle {
+  font-size: 1.8rem;
+  letter-spacing: 2px;
+  color: #fff;
+  margin-bottom: 1rem;
+  animation: fadeIn 2s ease-in;
+}
+
+/* ------------------------------
+   UFO + VACA + HAZ DE LUZ
+--------------------------------*/
+.abduction {
+  position: relative;
+  width: 200px;
+  height: 300px;
+  margin: 3rem auto;
+}
+
+.ufo {
+  width: 180px;
+  position: absolute;
+  top: 0;
+  left: 10px;
+  filter: drop-shadow(0 0 20px rgba(0, 255, 178, 0.7));
+  animation: float 3s ease-in-out infinite, rotateSlight 6s ease-in-out infinite;
+  transition: filter 0.3s ease;
+}
+
+.ufo:hover {
+  filter: drop-shadow(0 0 35px rgba(0, 255, 178, 1));
+}
+
+.beam {
+  position: absolute;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 70px solid transparent;
+  border-right: 70px solid transparent;
+  border-bottom: 250px solid rgba(0, 255, 178, 0.25);
+  filter: blur(2px);
+  animation: beamPulse 1.8s ease-in-out infinite alternate;
+}
+
+.cow {
+  width: 100px;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: lift 3.2s ease-in-out infinite, tilt 5s ease-in-out infinite;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.cow:hover {
+  transform: translateX(-50%) translateY(-5px) rotate(-2deg);
+  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.7));
+}
+
+/* ------------------------------
+   TEXTO Y BOTÓN
+--------------------------------*/
+.message {
+  max-width: 500px;
+  margin: 1.5rem auto;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: #e5e5e5;
+  animation: fadeInUp 2s ease;
+}
+
+.home-btn {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.8rem 1.8rem;
+  color: #0B0C10;
+  background-color: #00FFB2;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 500;
+  box-shadow: 0 0 15px rgba(0, 255, 178, 0.6);
+  transition: all 0.25s ease;
+}
+
+.home-btn:hover {
+  background-color: #00dca1;
+  box-shadow: 0 0 30px rgba(0, 255, 178, 0.8);
+  transform: translateY(-3px) scale(1.08);
+}
+
+.home-btn:active {
+  transform: translateY(1px) scale(0.98);
+  box-shadow: 0 0 15px rgba(0, 255, 178, 0.5);
+}
+
+/* ------------------------------
+   FOOTER
+--------------------------------*/
+footer {
+  text-align: center;
+  padding: 1.5rem 0;
+  font-size: 0.9rem;
+  color: #888;
+}
+
+/* ------------------------------
+   ANIMACIONES
+--------------------------------*/
+@keyframes moveStars {
+  from { transform: translateY(0); }
+  to { transform: translateY(-1000px); }
+}
+
+@keyframes moveTwinkling {
+  from { transform: translateY(0); }
+  to { transform: translateY(-1000px); }
+}
+
 @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+@keyframes rotateSlight {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(1deg); }
+}
+
+@keyframes beamPulse {
+  0% { opacity: 0.2; filter: blur(1px); }
+  100% { opacity: 0.5; filter: blur(3px); }
+}
+
+@keyframes lift {
+  0%, 100% { transform: translate(-50%, 0); }
+  50% { transform: translate(-50%, -20px); }
+}
+
+@keyframes tilt {
+  0%, 100% { transform: translate(-50%, 0) rotate(0deg); }
+  50% { transform: translate(-50%, -5px) rotate(2deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes glowText {
+  0% { text-shadow: 0 0 10px rgba(0, 255, 178, 0.4); }
+  100% { text-shadow: 0 0 35px rgba(0, 255, 178, 1); }
+}
+
+/* ------------------------------
+   RESPONSIVIDAD
+--------------------------------*/
+@media (max-width: 600px) {
+  .title {
+    font-size: 4.5rem;
+  }
+  .subtitle {
+    font-size: 1.2rem;
+  }
+  .abduction {
+    width: 150px;
+    height: 250px;
+  }
+  .ufo {
+    width: 130px;
+    left: 10px;
+  }
+  .beam {
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    border-bottom: 200px solid rgba(0, 255, 178, 0.25);
+  }
+  .cow {
+    width: 80px;
+  }
+}
+
+/* ------------------------------
+   ESTRELLAS FUGACES
+--------------------------------*/
+.stars::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 80px;
+  background: linear-gradient(45deg, #fff, rgba(255,255,255,0));
+  opacity: 0;
+  top: 0;
+  left: 0;
+  animation: shootingStar 2s linear infinite;
+}
+
+@keyframes shootingStar {
+  0% {
+    transform: translate(-100vw, -50vh) rotate(45deg);
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(100vw, 50vh) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+/* Se pueden duplicar con delays para más estrellas fugaces */
+.stars::before {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 60px;
+  background: linear-gradient(45deg, #fff, rgba(255,255,255,0));
+  opacity: 0;
+  top: 0;
+  left: 0;
+  animation: shootingStar2 3.5s linear infinite;
+  animation-delay: 1s;
+}
+
+@keyframes shootingStar2 {
+  0% { transform: translate(-120vw, -40vh) rotate(30deg); opacity: 0; }
+  5% { opacity: 1; }
+  100% { transform: translate(120vw, 40vh) rotate(30deg); opacity: 0; }
+}
+
+/* ------------------------------
+   HAZ DE LUZ INTERACTIVO
+--------------------------------*/
+.abduction:hover .beam {
+  animation: beamPulseHover 1s ease-in-out infinite alternate;
+}
+
+@keyframes beamPulseHover {
+  0% { opacity: 0.3; filter: blur(2px) brightness(1); }
+  50% { opacity: 0.7; filter: blur(4px) brightness(1.3); }
+  100% { opacity: 0.3; filter: blur(2px) brightness(1); }
 }
