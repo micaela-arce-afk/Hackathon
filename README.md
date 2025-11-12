@@ -1,2 +1,2 @@
 # Hackathon
-Valeria Chacin, Anahí Kolofon, Micaela Arce, Virginia Sarrais, Sofía Ruiz
+Valeria Chacin, Anahí Kolofon, Micaela Arce, Virginia Sarrais
