@@ -11,7 +11,7 @@ body {
   color: #fff;
   background: radial-gradient(circle at center, #0b0c10 35%, #050608 100%);
   overflow-x: hidden;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
@@ -26,11 +26,21 @@ main.scene {
   align-items: center;
   gap: 1.5rem;
   padding: 2rem;
-  transform-origin: center center;
-  transition: transform 0.1s ease-out;
+  animation: sceneZoom 15s ease-in-out infinite alternate;
+}
+@keyframes sceneZoom {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
-/* FONDO ESTRELLADO Y NEBULA */
+/* FONDO */
 .stars,
 .twinkling,
 .nebula,
@@ -40,9 +50,9 @@ main.scene {
   left: 0;
   width: 200%;
   height: 200%;
+  display: block;
   z-index: -2;
 }
-
 .stars {
   background: transparent
     url("https://raw.githubusercontent.com/ruvebal/web-atelier-udit/main/lessons/en/404/hackathon/stars.png")
@@ -77,6 +87,98 @@ main.scene {
   }
 }
 
+.planets {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+.planet {
+  position: absolute;
+  width: 80px;
+  animation: planetMove 20s linear infinite;
+}
+.planet:nth-child(2) {
+  width: 50px;
+}
+@keyframes planetMove {
+  0% {
+    transform: translateY(calc(var(--i) * 50px)) translateX(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(calc(var(--i) * 50px + 20px)) translateX(30px)
+      rotate(15deg);
+  }
+  100% {
+    transform: translateY(calc(var(--i) * 50px)) translateX(0) rotate(0deg);
+  }
+}
+
+/* ESTRELLAS FUGACES */
+.dynamic-stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+.dynamic-star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0;
+  transform: translate(0, 0) rotate(20deg);
+  animation: shootingStar linear forwards;
+}
+@keyframes shootingStar {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(20deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--x-end), var(--y-end)) rotate(20deg);
+  }
+}
+
+/* ALIENITOS */
+.aliens {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+.alien {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: #0ff;
+  border-radius: 50%;
+  opacity: 0;
+  animation: alienBlink 2s infinite alternate;
+}
+@keyframes alienBlink {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 /* TEXTO */
 .title {
   font-family: "Orbitron", sans-serif;
@@ -91,8 +193,8 @@ main.scene {
   letter-spacing: 2px;
   color: #fff;
   animation: fadeIn 2s ease-in;
-  margin-top: -0.5rem;
-  margin-bottom: 2rem;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
 }
 
 /* UFO + VACA + HAZ */
@@ -114,6 +216,17 @@ main.scene {
 .ufo:hover {
   filter: drop-shadow(0 0 35px rgba(0, 255, 178, 1));
 }
+@keyframes ufoZoom {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-10px) scale(1.05);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
 .beam {
   position: absolute;
   top: 60px;
@@ -127,6 +240,20 @@ main.scene {
   filter: blur(2px);
   animation: beamPulse 1.8s ease-in-out infinite alternate,
     beamZoom 2s ease-in-out infinite alternate;
+}
+@keyframes beamZoom {
+  0% {
+    transform: translateX(-50%) scaleY(1);
+    opacity: 0.25;
+  }
+  50% {
+    transform: translateX(-50%) scaleY(1.1);
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateX(-50%) scaleY(1);
+    opacity: 0.25;
+  }
 }
 .abduction:hover .beam {
   animation: beamPulseHover 1s ease-in-out infinite alternate;
@@ -153,9 +280,13 @@ main.scene {
   line-height: 1.5;
   color: #e5e5e5;
   animation: fadeInUp 2s ease;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   margin-bottom: 0.5rem;
 }
+.message {
+  transition: opacity 0.5s ease-in-out;
+}
+
 .home-btn {
   display: inline-block;
   padding: 0.8rem 1.8rem;
@@ -187,7 +318,7 @@ footer {
   margin-top: auto;
 }
 
-/* ANIMACIONES */
+/* ANIMACIONES GENERALES */
 @keyframes moveStars {
   from {
     transform: translateY(0);
